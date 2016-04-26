@@ -1,3 +1,8 @@
 <launch>
-
+    <node pkg="race" name="control" type="control.py" />
+    <node pkg="race" name="talker" type="talker.py" />
+    <node pkg="race" name="dist_finder" type="dist_finder.py" />
+    <node pkg="amcl" name="amcl" type="amcl">
+        <rosparam param="scan">base_scan</rosparam>
+    </node>
 </launch>
