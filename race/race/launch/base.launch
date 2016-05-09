@@ -2,7 +2,7 @@
     <node pkg="race" name="control" type="control.py" />
     <node pkg="race" name="talker" type="talker.py" />
     <node pkg="race" name="dist_finder" type="dist_finder.py" />
-    <node pkg="amcl" name="amcl" type="amcl">
-        <rosparam param="scan">base_scan</rosparam>
-    </node>
+    <node pkg="race" name="corner_loc" type="corner_loc" />
+    <node pkg="race" name="wall_follower" type="wall_follower.py" />
+    <node pkg="race" name="control" type="control.py" />
 </launch>
