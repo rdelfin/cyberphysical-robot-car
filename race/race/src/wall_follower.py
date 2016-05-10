@@ -9,6 +9,7 @@ from race.msg import wall_dist  #x, distance; theta, radians
 desired_trajectory = 0.6
 vel = 9
 turnMode = False
+corner_service = 0
 
 pub = rospy.Publisher('error', pid_input, queue_size=10)
 
@@ -16,12 +17,7 @@ pub = rospy.Publisher('error', pid_input, queue_size=10)
 
 def callback(data):
     global turnMode
-    rospy.wait_for_service('corner')
-    try:
-        corner_service = rospy.ServiceProxy('corner', corner_loc)
-        corner_data = corner_service()
-    except rospy.ServiceException, e:
-        print "service call failed: " + str(e)
+    corner_data = corner_service()
     
     if(turnMode):
         error = 1
@@ -47,4 +43,9 @@ def callback(data):
 if __name__ == "__main__":
     rospy.init_node("wall_follower", anonymous = True)
     rospy.Subscriber("wall_distance", wall_dist, callback)
+    rospy.wait_for_service('corner')
+    try:
+        corner_service = rospy.ServiceProxy('corner', corner_loc)
+    except rospy.ServiceException, e:
+        print "service call failed: " + str(e)
     rospy.spin()
